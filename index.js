@@ -6,6 +6,10 @@ import { processLastFiveGames } from "./scripts/historyService.js";
 
 const app = express();
 
+app.get("/", async(req,res) => {
+  res.status(200).send("Running just fine")
+});
+
 app.get("/rank/:uid", async (req, res) => {
   try {
     const playerData = await fetchPlayerData(req.params.uid);

@@ -14,10 +14,11 @@ export async function fetchPlayerData(UID) {
   try {
     const response = await axios.request({...apiConfig, url});
 
-    const rankData = JSON.parse(response.data.player.info.rank_game_1001002);
-
-    const points = rankData.rank_game.rank_score;
-    const rank = getRank(points);
+    const rankData = response.data.player.info.rank_game_season;
+    const points = rankData["1001002"].rank_score;
+    
+    const rank = getRank(rankData["1001002"].rank_score);
+    
     if (rank != "Eternity") {
       return `${rank} [${Math.round(points % 100)}RS]`;
     } else {

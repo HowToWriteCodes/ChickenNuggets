@@ -18,10 +18,21 @@ export async function fetchPlayerData(UID) {
     Broken as on 06/0/2025 */
     
     /* Alternate way for the time being
-    Will switch back to original later */
-    
-    const rankData = response.data.match_history[0];
-    const points = rankData.player_performance.new_score;
+    Will switch back to original later */    
+
+    const rankData = response.data.match_history;
+
+    const targetGame = rankData.find(game => game.game_mode_id === 2);
+
+    var points;
+
+    if (targetGame) {
+      points = targetGame.player_performance.new_score;
+    } else {
+      const tempFallback = response.data.player.info.rank_game_season
+      points = tempFallback["1001002"].rank_score
+    }
+
     const rank = getRank(points);
     
     if (rank != "Eternity") {

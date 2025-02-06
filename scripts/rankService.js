@@ -21,7 +21,7 @@ export async function fetchPlayerData(UID) {
     Will switch back to original later */
     
     const rankData = response.data.match_history[0];
-    const points = rankData[0].player_performance.new_score;
+    const points = rankData.player_performance.new_score;
     const rank = getRank(points);
     
     if (rank != "Eternity") {

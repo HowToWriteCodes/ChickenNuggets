@@ -4,12 +4,11 @@ and returns the corresponding rank*/
 import axios from "axios";
 import { apiConfig } from "../config.js";
 import { getRank } from "./rankUtils.js";
-import { updateData } from "./updateService.js"; 
+
 
 export async function fetchPlayerData(UID) {
 
   const url = `https://marvelrivalsapi.com/api/v1/player/${UID}`
-  updateData(UID);
  
   try {
     const response = await axios.request({...apiConfig, url});

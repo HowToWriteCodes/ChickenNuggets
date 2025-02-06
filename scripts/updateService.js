@@ -1,6 +1,7 @@
 /* Simple service to update data
 Could setup a way to avoid frequent updates
-By checking last_history_update before hitting this service*/
+By checking last_history_update before hitting this service
+Has a 30 min delay before new data is updated*/
 
 import axios from "axios";
 import { apiConfig } from "../config.js";

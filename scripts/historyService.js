@@ -3,11 +3,9 @@ and returns the last five games results as a string*/
 
 import axios from "axios";
 import { apiConfig } from "../config.js";
-import { updateData } from "./updateService.js"; 
 
 export async function processLastFiveGames(UID) {
   const url = `https://marvelrivalsapi.com/api/v1/player/${UID}`;
-  updateData(UID);
 
   const response = await axios.request({ ...apiConfig, url });
 

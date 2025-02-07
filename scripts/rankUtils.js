@@ -31,5 +31,5 @@ export function getRank(points) {
     [3000, "Bronze III"],
   ];
 
-  return ranks.find(([threshold]) => points >= threshold)?.[1];
+  return ranks.find(([threshold]) => points >= threshold)?.[0];
 }

@@ -13,12 +13,25 @@ export async function fetchPlayerData(UID) {
   try {
     const response = await axios.request({...apiConfig, url});
 
-    /*const rankData = response.data.player.info.rank_game_season;
+    const rankData = response.data.player.info.rank_game_season;
     const points = rankData["1001002"].rank_score;
-    Broken as on 06/0/2025 */
     
-    /* Alternate way for the time being
-    Will switch back to original later */    
+    const elo = getRank(points) - parseInt(points);
+    const rank = response.data.player.rank.rank;
+    
+    if (rank != "Eternity") {
+      return `${rank} [${elo}]`;
+    } else {
+      return `${rank} [${parseInt(points - 5000)}]`;
+    }
+  } catch (error) {
+    console.log("Timed Out");
+  }
+}
+
+
+  /* Alternate way for the time being
+    Will switch back to original later  
 
     const rankData = response.data.match_history;
 
@@ -32,15 +45,4 @@ export async function fetchPlayerData(UID) {
       const tempFallback = response.data.player.info.rank_game_season
       points = tempFallback["1001002"].rank_score
     }
-
-    const rank = getRank(points);
-    
-    if (rank != "Eternity") {
-      return `${rank} [${Math.round(points % 100)}RS]`;
-    } else {
-      return `${rank} [${Math.round(points - 5000)}RS]`;
-    }
-  } catch (error) {
-    console.log("Timed Out");
-  }
-}
+    */

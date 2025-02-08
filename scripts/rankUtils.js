@@ -3,7 +3,7 @@ and returns the corresponding rank along with base MMR*/
 
 export function getRank(rankValue) {
   
-  if (typeof rankValue !== "number" || points < 3000) return "Rank not found";
+  if (typeof rankValue !== "number") return "Rank not found";
 
  const rankFilter =  {
     '1': [3000, 'Bronze III'],

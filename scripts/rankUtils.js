@@ -29,8 +29,6 @@ export function getRank(rankValue) {
     '21': [5000, 'Celestial I'],
     '22': [5100, 'Eternity'],
     '23': [5100, 'One Above All']
-  }
-  
-  
-  return (rankValue) => rankFilter[rankValue] || rankFilter['1'];
+  } 
+  return rankFilter[rankValue] || rankFilter['1'];
 }

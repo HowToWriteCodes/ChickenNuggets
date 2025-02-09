@@ -12,9 +12,10 @@ export async function processLastFiveGames(UID) {
   const lastFiveGames = response.data.match_history.slice(0, 5);
 
   const results = lastFiveGames.map((item) => {
-    const isWin = item.player_performance?.is_win;
-    if (isWin === 1) return "W";
+    const isWin = item.player_performance?.is_win.score;
     if (isWin === 0) return "L";
+    if (isWin === 1) return "W";
+    if (isWin === 2) return "D";
     return "N/A"; // For any unexpected cases
   });
   return results.join(" ");

@@ -3,7 +3,7 @@ import axios from "axios";
 import { apiConfig } from "../config.js";
 import { getRank } from "./rankUtils.js";
 import { CacheService } from "../cache/cacheService.js";
-
+import { updateData } from "./updateService.js";
 // Create and export cache instance
 export const rankCache = new CacheService(300000);
 
@@ -31,9 +31,21 @@ export async function fetchPlayerData(UID) {
 }
 
 async function updateCacheInBackground(UID) {
-  fetchAndCacheData(UID).catch(err => 
-    console.error('Background cache update failed:', err)
-  );
+  try {
+    // First call update API
+    await updateData(UID);
+    
+    // Wait 20 seconds for data to propagate
+    console.log(`Waiting 20s for ${UID} data to update...`);
+    await new Promise(resolve => setTimeout(resolve, 20000));
+    
+    // Now fetch and cache fresh data
+    await fetchAndCacheData(UID)
+      .catch(err => console.error('Failed to fetch updated data:', err));
+      
+  } catch (err) {
+    console.error('Background cache update failed:', err);
+  }
 }
 
 async function fetchAndCacheData(UID) {

@@ -1,11 +1,13 @@
-// rankService.js
+/* Pulls out player data,
+Does processing on it, caches it sends back the result */
+
 import axios from "axios";
 import { apiConfig, CACHE_TIMEOUT } from "../config.js";
 import { getRank } from "./rankUtils.js";
 import { CacheService } from "../cache/cacheService.js";
 import { updateData } from "./updateService.js";
 // Create and export cache instance
-export const rankCache = new CacheService(300000);
+export const rankCache = new CacheService();
 
 export async function fetchPlayerData(UID) {
   try {
@@ -47,8 +49,7 @@ async function updateCacheInBackground(UID) {
 }
 
 async function fetchAndCacheData(UID) {
-  const url = `https://marvelrivalsapi.com/api/v1/player/${UID}`;
-  const response = await axios.request({...apiConfig, url});
+  const response = await axios.request({ ...apiConfig, url:`/${UID}/` });
   
   if (!response.data) {
     throw new Error('No data received from API');
@@ -64,6 +65,8 @@ async function fetchAndCacheData(UID) {
   
   return result;
 }
+
+/* Make changes here to change the way you rank data is processed */
 
 function processPlayerData(data) {
   const rankData = data.match_history;

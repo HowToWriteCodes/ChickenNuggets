@@ -1,13 +1,11 @@
 // rankService.js
 import axios from "axios";
-import { apiConfig } from "../config.js";
+import { apiConfig, CACHE_TIMEOUT } from "../config.js";
 import { getRank } from "./rankUtils.js";
 import { CacheService } from "../cache/cacheService.js";
 import { updateData } from "./updateService.js";
 // Create and export cache instance
 export const rankCache = new CacheService(300000);
-
-const CACHE_TIMEOUT = 35 * 60 * 1000; // 35 minutes
 
 export async function fetchPlayerData(UID) {
   try {

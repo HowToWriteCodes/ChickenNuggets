@@ -1,5 +1,5 @@
 /* Pulls out match history,
-Does processing on it, caches itsends back the result */
+Does processing on it, caches it sends back the result */
 
 import axios from "axios";
 import { apiConfig, CACHE_TIMEOUT } from "../config.js";
@@ -7,9 +7,7 @@ import { CacheService } from "../cache/cacheService.js";
 import { updateData } from "./updateService.js";
 
 // Create and export cache instance
-export const historyCache = new CacheService(300000);
-
-const CACHE_TIMEOUT = 35 * 60 * 1000; // Recommended: 35 minutes, Min: 30 minutes
+export const historyCache = new CacheService();
 
 export async function processLastFiveGames(UID) {
   const cachedEntry = historyCache.get(UID);
